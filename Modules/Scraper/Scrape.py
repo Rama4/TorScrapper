@@ -4,6 +4,8 @@
 import urllib.request
 from bs4 import BeautifulSoup
 import sys,re,os
+from dotenv import load_dotenv
+
 
 #######################################################################################################################
 ################################################ TOR CONNECTION BELOW #################################################
@@ -14,9 +16,12 @@ from stem import Signal
 from stem.control import Controller
 import socks, socket
 
+load_dotenv()
+TORSCRAPPER_AUTH_HASH = os.getenv('TORSCRAPPER_AUTH_HASH')
+
 #Initiating Connection
 with Controller.from_port(port=9051) as controller:
-    controller.authenticate("16:AE80E3930E42F7A3606823FA19CD0A3E721813EF8798ABFE86DB91DD09")
+    controller.authenticate(TORSCRAPPER_AUTH_HASH)
     controller.signal(Signal.NEWNYM)
 
 # TOR SETUP GLOBAL Vars
